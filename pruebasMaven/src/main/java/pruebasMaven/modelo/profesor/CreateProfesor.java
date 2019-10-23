@@ -1,23 +1,18 @@
-package pruebasMaven.modelo.asignatura;
+package pruebasMaven.modelo.profesor;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import pruebasMaven.negocio.AlumnoBean;
-import pruebasMaven.negocio.AsignaturaBean;
+import pruebasMaven.negocio.ProfesorBean;
 import pruebasMaven.util.Connection;
 
-public class CreateAsignatura {
-
-	public void create(AsignaturaBean asignatura) {
+public class CreateProfesor {
+public void create(ProfesorBean profesor) {
 		
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.jose.pruebasMaven.H2");
 		//EntityManager entityManager = emf.createEntityManager() ;
 		EntityManager entityManager = Connection.getEntityManager();
 		
 		entityManager.getTransaction().begin();//iniciamos la transaccion
-		entityManager.persist(asignatura);//le damos el dato a crear
+		entityManager.persist(profesor);//le damos el dato a crear
 		entityManager.getTransaction().commit();//confirmamos la accion
 		//entityManager.close();//lo cerramos
 		
