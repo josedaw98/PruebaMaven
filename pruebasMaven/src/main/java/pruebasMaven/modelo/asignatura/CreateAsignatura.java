@@ -6,20 +6,24 @@ import javax.persistence.Persistence;
 
 import pruebasMaven.negocio.AlumnoBean;
 import pruebasMaven.negocio.AsignaturaBean;
-import pruebasMaven.util.Connection;
+import pruebasMaven.util.ConnectionEntityManagerFactory;
 
 public class CreateAsignatura {
+	/**
+	 * Crea una persistencia de un objeto asignatura
+	 * @param asignatura
+	 */
 
 	public void create(AsignaturaBean asignatura) {
+
+			// recoge la entity, abre la transacción, persiste y la cierra
+			EntityManager entityManager = ConnectionEntityManagerFactory.getEntityManager().createEntityManager();
+			
+			entityManager.getTransaction().begin();
+			entityManager.persist(asignatura);
+			entityManager.getTransaction().commit();
+			entityManager.close();
 		
-		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.jose.pruebasMaven.H2");
-		//EntityManager entityManager = emf.createEntityManager() ;
-		EntityManager entityManager = Connection.getEntityManager();
-		
-		entityManager.getTransaction().begin();//iniciamos la transaccion
-		entityManager.persist(asignatura);//le damos el dato a crear
-		entityManager.getTransaction().commit();//confirmamos la accion
-		//entityManager.close();//lo cerramos
 		
 	}
 

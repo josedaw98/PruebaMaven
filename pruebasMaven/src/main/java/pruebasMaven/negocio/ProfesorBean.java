@@ -11,9 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import pruebasMaven.modelo.alumno.CreateAlumno;
-import pruebasMaven.modelo.asignatura.CreateAsignatura;
-import pruebasMaven.util.Connection;
 
 @Entity//necesario 
 @Table(name="profesor")//recalca que se va a crear una tabla

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +29,7 @@ public class AsignaturaBean {
 	@Column
 	private String nombre;
 
-	@OneToMany(mappedBy = "asignatura")
+	@ManyToMany(mappedBy = "asignaturas")
 	private List<AlumnoBean> alumnos = new ArrayList<AlumnoBean>();
 
 	@ManyToOne
@@ -40,7 +41,12 @@ public class AsignaturaBean {
 		if (!alumnos.contains(alumno)) {
 
 			alumnos.add(alumno);
-			alumno.setAsignatura(this);
+			//decirle al alumno que añada la asignatura
+			List<AsignaturaBean> asignaturas = alumno.getAsignaturas();
+			if(!asignaturas.contains(this)) {
+				asignaturas.add(this);
+				
+			}
 		}
 	}
 

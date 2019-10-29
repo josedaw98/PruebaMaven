@@ -5,7 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import pruebasMaven.negocio.AlumnoBean;
-import pruebasMaven.util.Connection;
+import pruebasMaven.util.ConnectionEntityManagerFactory;
 
 public class DeleteAlumno {
 	
@@ -13,7 +13,7 @@ public void delete(AlumnoBean alumno) {
 		
 		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.jose.pruebasMaven.H2");
 		//EntityManager entityManager = emf.createEntityManager() ;
-		EntityManager entityManager = Connection.getEntityManager();
+		EntityManager entityManager = ConnectionEntityManagerFactory.getEntityManager().createEntityManager();
 		
 		entityManager.getTransaction().begin();//iniciamos la transaccion
 		AlumnoBean alumnoBorrar = entityManager.find(AlumnoBean.class, alumno.getIdAlumno());

@@ -7,74 +7,92 @@ import pruebasMaven.modelo.profesor.CreateProfesor;
 import pruebasMaven.negocio.AlumnoBean;
 import pruebasMaven.negocio.AsignaturaBean;
 import pruebasMaven.negocio.ProfesorBean;
-import pruebasMaven.util.Connection;
 
 public class Start {
 
 	public static void main(String[] args) {
 
-		// creamos asignaturas
+		/*
+		 * ********************************
+		 * C R E A N D O    O B J E T O S
+		 * ********************************
+		 */
+		ProfesorBean jose = new ProfesorBean();
+		jose.setNombre("Jose");
+		
+		
 		AsignaturaBean lengua = new AsignaturaBean();
-		lengua.setNombre("Lenagua");
+		lengua.setNombre("lengua");
+		
+		AsignaturaBean historia = new AsignaturaBean();
+		historia.setNombre("historia");
+		
+		AsignaturaBean filosofia = new AsignaturaBean();
+		filosofia.setNombre("filosofia");
 
 		AsignaturaBean mates = new AsignaturaBean();
-		mates.setNombre("Mates");
-
-		AsignaturaBean historia = new AsignaturaBean();
-		historia.setNombre("Hisotria");
-
-		AsignaturaBean filosofia = new AsignaturaBean();
-		filosofia.setNombre("Filosofia");
-
-		// CREAMOS PORFESORES
-		ProfesorBean joseCarlos = new ProfesorBean();
-		joseCarlos.setNombre("joseCarlos");
-
-		// CREAMOS ALUMNOS
-		AlumnoBean jose = new AlumnoBean();
-		jose.setNombre("Luis");
-		jose.setTelefono("647265372");
-		jose.setCiudad("oviedo");
+		mates.setNombre("mates");
 		
 
+		
+		
+		
 		AlumnoBean maria = new AlumnoBean();
 		maria.setNombre("Maria");
-		maria.setTelefono("624826371");
-		maria.setCiudad("Gijon");
+		maria.setCiudad("Oviedo");
+		maria.setTelefono("666555444");
+		
+		AlumnoBean marcos = new AlumnoBean();
+		marcos.setNombre("Marcos");
+		marcos.setCiudad("Oviedo");
+		marcos.setTelefono("666555444");
+
 		
 		
-		// AÑADIMOS LOS ALUMNOS A LAS ASIGNATURAS
-		filosofia.addAlumno(jose);
+		
+		/*
+		 * **************************************************
+		 * A Ñ A D I E N D O    I N F O R M A C I Ó N
+		 * **************************************************
+		 */		
+		jose.addAsignatura(lengua);
+		jose.addAsignatura(filosofia);
+		jose.addAsignatura(mates);
+		jose.addAsignatura(historia);
+		
+		
+		filosofia.addAlumno(marcos);
 		filosofia.addAlumno(maria);
 		
-		// AÑADIMOS LAS ASIGNATURAS AL PROFESOR
-		joseCarlos.addAsignatura(filosofia);
-		joseCarlos.addAsignatura(mates);
-
-		// AÑADIMOS LOS PROFESORES A LA BASE DE DATOS
-		CreateProfesor crearProfesor = new CreateProfesor();
-		crearProfesor.create(joseCarlos);
-		
-		
-
-		// AÑADIMOS LAS ASIGNATURAS A LA BASE DE DATOS
-		CreateAsignatura CreateAsignatura = new CreateAsignatura();
-		CreateAsignatura.create(lengua);
-		CreateAsignatura.create(mates);
-		CreateAsignatura.create(historia);
-		CreateAsignatura.create(filosofia);
-
-
-		// AÑADIMOS LOS ALUMNOS A LA BASE DE DATOS
-		CreateAlumno crearAlumno = new CreateAlumno();
-		crearAlumno.create(maria);
-		crearAlumno.create(jose);
 		
 		
 		
-		ProfesorBean nueva = Connection.getEntityManager().find(ProfesorBean.class, 1L);
-		System.out.println(nueva);
-
-		Connection.getEntityManager().close();
+		
+		/*
+		 * **************************************************
+		 * P E R S I S T I E N D O    L O S     D A T O S
+		 * **************************************************
+		 */			
+	
+		CreateProfesor createProfesor = new CreateProfesor();
+		createProfesor.create(jose);		
+		
+		
+		
+		CreateAsignatura createAsignatura = new CreateAsignatura();
+		// Esta persistencia da una excepción ¿Por qué?
+		createAsignatura.create(lengua);
+		
+		// Esto ya no se ejecuta por la excepción anterior
+		createAsignatura.create(mates);
+		createAsignatura.create(historia);
+		createAsignatura.create(filosofia);
+		
+		
+		CreateAlumno createAlumno = new CreateAlumno();
+		createAlumno.create(marcos);
+		createAlumno.create(maria);
+	
+		
 	}
 }

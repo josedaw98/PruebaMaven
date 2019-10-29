@@ -5,21 +5,19 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import pruebasMaven.negocio.AlumnoBean;
-import pruebasMaven.util.Connection;
+import pruebasMaven.util.ConnectionEntityManagerFactory;
 
 public class CreateAlumno {
 
 	public void create(AlumnoBean alumno) {
 		
-		//EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.jose.pruebasMaven.H2");
-		//EntityManager entityManager = emf.createEntityManager() ;
-		EntityManager entityManager = Connection.getEntityManager();
-		
-		entityManager.getTransaction().begin();//iniciamos la transaccion
-		entityManager.persist(alumno);//le damos el dato a crear
-		entityManager.getTransaction().commit();//confirmamos la accion
-		//entityManager.close();//lo cerramos
-		
+		// recoge la entity, abre la transacción, persiste y la cierra
+					EntityManager entityManager = ConnectionEntityManagerFactory.getEntityManager().createEntityManager();
+					
+					entityManager.getTransaction().begin();
+					entityManager.persist(alumno);
+					entityManager.getTransaction().commit();
+					entityManager.close();
 	}
 
 }
